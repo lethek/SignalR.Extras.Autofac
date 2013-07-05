@@ -1,0 +1,33 @@
+##### EXCLUDES #####
+
+# Project Agnostic
+.svn/
+_ReSharper.*/
+/_UpgradeReport_Files/
+*.suo
+*.bak
+*.[Cc]ache
+*.user
+*.ncb
+*.schemaview
+*.[Rr]e[Ss]harper
+*.FileListAbsolute.txt
+Ankh.NoLoad
+[Tt]humbs.db
+/UpgradeLog.XML
+/UpgradeLog.htm
+*.log
+*.dbmdl
+*.docstates
+*.Publish.xml
+
+# Project Specific
+/[Pp]ackages/*/
+
+# Build Generated
+
+# Build Binaries
+/[Ss]ource/*/[Bb]in/
+/[Ss]ource/*/[Oo]bj/
+
+##### INCLUDES #####
