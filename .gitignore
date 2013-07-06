@@ -25,6 +25,7 @@ Ankh.NoLoad
 /[Pp]ackages/*/
 
 # Build Generated
+/[Bb]uild/*.nupkg
 
 # Build Binaries
 /[Ss]ource/*/[Bb]in/
