@@ -4,8 +4,8 @@ using Microsoft.AspNet.SignalR;
 namespace AutofacExtensions.Integration.SignalR
 {
 	/// <summary>
-	/// Hubs that have injected dependencies which must be scoped to the same lifetime should
-	/// inherit this class to enable automatic lifetime scope management and prevent memory leaks.
+	/// Hubs with injected dependencies which must be scoped to the same lifetime should subclass
+	/// LifetimeHub to enable proper and transparent lifetime-scope management.
 	/// </summary>
 	public abstract class LifetimeHub : Hub
 	{

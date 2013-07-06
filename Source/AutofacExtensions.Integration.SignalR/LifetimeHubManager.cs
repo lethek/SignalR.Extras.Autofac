@@ -6,7 +6,7 @@ using Microsoft.AspNet.SignalR.Hubs;
 
 namespace AutofacExtensions.Integration.SignalR
 {
-	internal class HubLifetimeScopeManager : IDisposable
+	internal class LifetimeHubManager : IDisposable
 	{
 		public T ResolveHub<T>(Type type, ILifetimeScope lifetimeScope) where T : LifetimeHub
 		{
@@ -19,6 +19,10 @@ namespace AutofacExtensions.Integration.SignalR
 			return hub;
 		}
 
+		/// <summary>
+		/// If the LifetimeHubManager is disposed, make sure that all lifetime-scopes that it's
+		/// still tracking also get disposed.
+		/// </summary>
 		public void Dispose()
 		{
 			ILifetimeScope[] scopes;
@@ -31,6 +35,9 @@ namespace AutofacExtensions.Integration.SignalR
 			}
 		}
 
+		/// <summary>
+		/// Make sure that the lifetime-scope associated with the hub is disposed
+		/// </summary>
 		private void HubOnDisposing(object sender, EventArgs eventArgs)
 		{
 			ILifetimeScope scope = null;

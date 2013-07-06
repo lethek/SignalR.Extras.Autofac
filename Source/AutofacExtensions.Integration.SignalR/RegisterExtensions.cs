@@ -4,14 +4,14 @@ using Microsoft.AspNet.SignalR.Hubs;
 
 namespace AutofacExtensions.Integration.SignalR
 {
-	public class SignalRModule : Module
+	public static class RegisterExtensions
 	{
-		protected override void Load(ContainerBuilder builder)
+		public static void RegisterLifetimeHubManager(this ContainerBuilder builder)
 		{
 			if (builder == null) {
 				throw new ArgumentNullException("builder");
 			}
-			builder.RegisterType<HubLifetimeScopeManager>().SingleInstance();
+			builder.RegisterType<LifetimeHubManager>().SingleInstance();
 			builder.RegisterType<AutofacHubActivator>().As<IHubActivator>().SingleInstance();
 		}
 	}

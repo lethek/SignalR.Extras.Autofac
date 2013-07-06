@@ -54,10 +54,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HubLifetimeScopeManager.cs" />
+    <Compile Include="AssemblyHook.cs" />
+    <Compile Include="LifetimeHubManager.cs" />
     <Compile Include="AutofacHubActivator.cs" />
     <Compile Include="LifetimeHub.cs" />
-    <Compile Include="SignalRModule.cs" />
+    <Compile Include="RegisterExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
