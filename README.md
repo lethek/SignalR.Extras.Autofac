@@ -9,8 +9,8 @@
 
 3. When setting up an Autofac container in your project, call the new RegisterLifetimeHubManager extension method on your ContainerBuilder instance, e.g.:
 
-```C#
-builder.RegisterLifetimeHubManager();
-```
+  ```C#
+  builder.RegisterLifetimeHubManager();
+  ```
 
 4. Ensure that your SignalR hubs inherit the LifetimeHub class
