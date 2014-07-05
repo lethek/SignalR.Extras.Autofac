@@ -2,7 +2,7 @@
 using Autofac;
 using Microsoft.AspNet.SignalR.Hubs;
 
-namespace AutofacExtensions.Integration.SignalR
+namespace SignalR.Extras.Autofac
 {
 	public static class RegisterExtensions
 	{

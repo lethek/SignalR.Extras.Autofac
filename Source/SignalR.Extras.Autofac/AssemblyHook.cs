@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace AutofacExtensions.Integration.SignalR
+namespace SignalR.Extras.Autofac
 {
 	public abstract class AssemblyHook
 	{

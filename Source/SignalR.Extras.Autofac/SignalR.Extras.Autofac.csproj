@@ -7,8 +7,8 @@
     <ProjectGuid>{38585C5D-F5FB-4CBF-94C9-11B7EC3C15E3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AutofacExtensions.Integration.SignalR</RootNamespace>
-    <AssemblyName>AutofacExtensions.Integration.SignalR</AssemblyName>
+    <RootNamespace>SignalR.Extras.Autofac</RootNamespace>
+    <AssemblyName>SignalR.Extras.Autofac</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

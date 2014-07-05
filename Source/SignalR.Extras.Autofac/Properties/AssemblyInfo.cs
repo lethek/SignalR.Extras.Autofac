@@ -9,8 +9,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Extends integration between Autofac and SignalR to enable transparent lifetime scope management for hubs.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Michael Monsour")]
-[assembly: AssemblyProduct("AutofacExtensions")]
-[assembly: AssemblyCopyright("Copyright © 2013 Michael Monsour")]
+[assembly: AssemblyProduct("SignalR.Extras.Autofac")]
+[assembly: AssemblyCopyright("Copyright © 2014 Michael Monsour")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("en-US")]
 

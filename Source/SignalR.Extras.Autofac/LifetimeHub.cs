@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNet.SignalR;
 
-namespace AutofacExtensions.Integration.SignalR
+namespace SignalR.Extras.Autofac
 {
 	/// <summary>
 	/// Hubs with injected dependencies which must be scoped to the same lifetime should subclass
