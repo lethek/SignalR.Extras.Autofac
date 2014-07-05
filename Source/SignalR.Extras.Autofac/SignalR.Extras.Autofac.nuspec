@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <package >
-  <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
-    <projectUrl>https://github.com/lethek/SignalR.Extras.Autofac</projectUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
-    <copyright>Copyright 2014 $author$</copyright>
-    <tags>Autofac SignalR</tags>
-    <dependencies>
-      <dependency id="Autofac" version="3.0.0" />
-      <dependency id="Microsoft.AspNet.SignalR.Core" version="1.1.2" />
-    </dependencies>
-  </metadata>
-  <files>
-    <file src="readme.txt" />
-  </files>
+	<metadata>
+		<id>$id$</id>
+		<version>$version$</version>
+		<title>$title$</title>
+		<authors>$author$</authors>
+		<owners>$author$</owners>
+		<projectUrl>https://github.com/lethek/SignalR.Extras.Autofac</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>$description$</description>
+		<copyright>Copyright 2014 $author$</copyright>
+		<tags>Autofac SignalR</tags>
+		<dependencies>
+			<dependency id="Autofac" version="3.0.0" />
+			<dependency id="Microsoft.AspNet.SignalR.Core" version="1.1.2" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="readme.txt" />
+	</files>
 </package>
