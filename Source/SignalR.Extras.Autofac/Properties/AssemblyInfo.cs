@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Autofac Integration for SignalR Hubs")]
-[assembly: AssemblyDescription("Extends integration between Autofac and SignalR to enable transparent lifetime scope management for hubs.")]
+[assembly: AssemblyTitle("Autofac Lifetime Scoping for SignalR Hubs")]
+[assembly: AssemblyDescription("Automatic Autofac lifetime-scope management for SignalR 2.x hubs.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Michael Monsour")]
 [assembly: AssemblyProduct("SignalR.Extras.Autofac")]
