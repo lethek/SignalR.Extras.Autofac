@@ -30,7 +30,7 @@ You can still register and use Hubs which do not inherit from LifetimeHub - depe
 // Create the container builder.
 var builder = new ContainerBuilder();
 
-// Register the LifetimeHub manager which takes care of setting up and destroying 
+// Register the LifetimeHub manager.
 builder.RegisterLifetimeHubManager();
 
 // Register the SignalR hubs.

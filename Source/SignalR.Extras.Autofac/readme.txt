@@ -38,7 +38,7 @@ injected correctly by Autofac, however you will have to manually manage their li
 // Create the container builder.
 var builder = new ContainerBuilder();
 
-// Register the LifetimeHub manager which takes care of setting up and destroying 
+// Register the LifetimeHub manager.
 builder.RegisterLifetimeHubManager();
 
 // Register the SignalR hubs.
