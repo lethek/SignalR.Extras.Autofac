@@ -8,7 +8,7 @@ Directly addresses a current limitation of Autofac where it does not provide any
 
 2. Reference the namespace: SignalR.Extras.Autofac
 
-3. When setting up an Autofac container in your project, follow the usual Autofac & SignalR integration steps as outlined on the Autofac wiki (https://github.com/autofac/Autofac/wiki/SignalR-Integration), i.e. replace SignalR's dependency resolver with Autofac's custom one and register your hubs as you normally would.
+3. When setting up an Autofac container in your project, follow the usual Autofac & SignalR integration steps as outlined on the Autofac wiki (http://autofac.readthedocs.org/en/latest/integration/signalr.html), i.e. replace SignalR's dependency resolver with Autofac's custom one and register your hubs as you normally would.
 
 4. Call the new RegisterLifetimeHubManager extension method on your ContainerBuilder instance, e.g.:
 
@@ -20,7 +20,7 @@ Directly addresses a current limitation of Autofac where it does not provide any
 
 Your hub instances will automatically and transparently be assigned their own new child lifetime scopes upon each invocation by SignalR. They will also automatically dispose of those lifetime scopes upon completion.
 
-You can still register and use Hubs which do not inherit from LifetimeHub - dependencies will still be injected correctly by Autofac, however you will have to manually manage their lifetime scopes yourself (as described here https://github.com/autofac/Autofac/wiki/SignalR-Integration#managing-dependencies).
+You can still register and use Hubs which do not inherit from LifetimeHub - dependencies will still be injected correctly by Autofac, however you will have to manually manage their lifetime scopes yourself (as described here http://autofac.readthedocs.org/en/latest/integration/signalr.html#managing-dependency-lifetimes).
 
 ## Example:
 

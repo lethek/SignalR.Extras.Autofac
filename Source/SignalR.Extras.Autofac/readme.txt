@@ -11,7 +11,7 @@ a lifetime scope per SignalR hub invocation. SignalR.Extras.Autofac provides a s
 2. Reference the namespace: SignalR.Extras.Autofac
 
 3. When setting up an Autofac container in your project, follow the usual Autofac & SignalR integration
-   steps as outlined on the Autofac wiki (https://github.com/autofac/Autofac/wiki/SignalR-Integration),
+   steps as outlined on the Autofac wiki (http://autofac.readthedocs.org/en/latest/integration/signalr.html),
    i.e. replace SignalR's dependency resolver with Autofac's custom one and register your hubs as you
    normally would.
 
@@ -28,7 +28,7 @@ completion.
 
 You can still register and use Hubs which do not inherit from LifetimeHub - dependencies will still be
 injected correctly by Autofac, however you will have to manually manage their lifetime scopes yourself
-(as described here https://github.com/autofac/Autofac/wiki/SignalR-Integration#managing-dependencies).
+(as described here http://autofac.readthedocs.org/en/latest/integration/signalr.html#managing-dependency-lifetimes).
 
 
 ## Example:
