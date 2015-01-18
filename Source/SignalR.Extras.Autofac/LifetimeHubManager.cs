@@ -25,6 +25,13 @@ namespace SignalR.Extras.Autofac
 		/// </summary>
 		public void Dispose()
 		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+
+		protected virtual void Dispose(bool disposing)
+		{
 			ILifetimeScope[] scopes;
 			lock (_hubLifetimeScopes) {
 				scopes = _hubLifetimeScopes.Select(x => x.Value).ToArray();
