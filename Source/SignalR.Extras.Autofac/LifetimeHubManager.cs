@@ -1,23 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Autofac;
+
 using Microsoft.AspNet.SignalR.Hubs;
+
 
 namespace SignalR.Extras.Autofac
 {
+
 	internal class LifetimeHubManager : IDisposable
 	{
-		public T ResolveHub<T>(Type type, ILifetimeScope lifetimeScope) where T : LifetimeHub
+
+		public T ResolveHub<T>(Type type, ILifetimeScope lifetimeScope)
+			where T : ILifetimeHub
 		{
 			var scope = lifetimeScope.BeginLifetimeScope();
 			var hub = (T)scope.Resolve(type);
-			hub.Disposing += HubOnDisposing;
+			hub.OnDisposing += HubOnDisposing;
 			lock (_hubLifetimeScopes) {
 				_hubLifetimeScopes.Add(hub, scope);
 			}
 			return hub;
 		}
+
 
 		/// <summary>
 		/// If the LifetimeHubManager is disposed, make sure that all lifetime-scopes that it's
@@ -42,6 +49,7 @@ namespace SignalR.Extras.Autofac
 			}
 		}
 
+
 		/// <summary>
 		/// Make sure that the lifetime-scope associated with the hub is disposed
 		/// </summary>
@@ -54,11 +62,11 @@ namespace SignalR.Extras.Autofac
 					_hubLifetimeScopes.Remove(hub);
 				}
 			}
-			if (scope != null) {
-				scope.Dispose();
-			}
+			scope?.Dispose();
 		}
+
 
 		private readonly Dictionary<IHub, ILifetimeScope> _hubLifetimeScopes = new Dictionary<IHub, ILifetimeScope>();
 	}
+
 }

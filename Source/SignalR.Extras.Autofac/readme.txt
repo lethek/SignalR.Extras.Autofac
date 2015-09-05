@@ -20,14 +20,14 @@ a lifetime scope per SignalR hub invocation. SignalR.Extras.Autofac provides a s
   builder.RegisterLifetimeHubManager();
 
 5. Ensure that your SignalR hubs which require per-invocation lifetime scopes inherit from the
-   LifetimeHub class.
+   LifetimeHub or LifetimeHub<T> classes.
 
 Your hub instances will automatically and transparently be assigned their own new child lifetime scopes
 upon each invocation by SignalR. They will also automatically dispose of those lifetime scopes upon
 completion.
 
-You can still register and use Hubs which do not inherit from LifetimeHub - dependencies will still be
-injected correctly by Autofac, however you will have to manually manage their lifetime scopes yourself
+You can still register and use Hubs which do not inherit from LifetimeHub or LifetimeHub<T> - dependencies will
+still be injected correctly by Autofac, however you will have to manually manage their lifetime scopes yourself
 (as described here http://autofac.readthedocs.org/en/latest/integration/signalr.html#managing-dependency-lifetimes).
 
 
@@ -62,9 +62,24 @@ public class MyHub : LifetimeHub
     }
 
     public void DoSomething() {
-        //UnitOfWork (and this hub) is automatically created prior to SignalR invoking this method
+        //The hub instance and dependencies like UnitOfWork are automatically created prior to SignalR invoking this method
         //Do stuff here
-        //UnitOfWork (and this hub) is automatically destroyed after SignalR has invoked this method
+        //The hub instance and dependencies like UnitOfWork are automatically destroyed after SignalR has invoked this method
+    }
+
+    private IUnitOfWork _unitOfWork;
+}
+
+public class SomeHub : LifetimeHub<ISomeClient>
+{
+    public SomeHub(IUnitOfWork unitOfWork) {
+        _unitOfWork = unitOfWork;
+    }
+
+    public void DoSomething() {
+        //The hub instance and dependencies like UnitOfWork are automatically created prior to SignalR invoking this method
+        //Do stuff here
+        //The hub instance and dependencies like UnitOfWork are automatically destroyed after SignalR has invoked this method
     }
 
     private IUnitOfWork _unitOfWork;

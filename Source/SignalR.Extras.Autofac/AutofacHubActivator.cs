@@ -1,26 +1,34 @@
 ﻿using Autofac;
+
 using Microsoft.AspNet.SignalR.Hubs;
+
 
 namespace SignalR.Extras.Autofac
 {
+
 	internal class AutofacHubActivator : IHubActivator
 	{
+
 		public AutofacHubActivator(LifetimeHubManager lifetimeHubManager, ILifetimeScope lifetimeScope)
 		{
-			LifetimeScope = lifetimeScope;
-			LifetimeHubManager = lifetimeHubManager;
+			_lifetimeScope = lifetimeScope;
+			_lifetimeHubManager = lifetimeHubManager;
 		}
+
 
 		public IHub Create(HubDescriptor descriptor)
 		{
-			//If requested type is a LifetimeHub, let the LifetimeHubManager nest a new lifetime-scope
+			//If requested type is an ILifetimeHub, let the LifetimeHubManager nest a new lifetime-scope
 			//before resolving and then hook up disposal notifications. Otherwise simply resolve and return.
-			return typeof(LifetimeHub).IsAssignableFrom(descriptor.HubType)
-				? LifetimeHubManager.ResolveHub<LifetimeHub>(descriptor.HubType, LifetimeScope)
-				: LifetimeScope.Resolve(descriptor.HubType) as IHub;
+			return typeof(ILifetimeHub).IsAssignableFrom(descriptor.HubType)
+				? _lifetimeHubManager.ResolveHub<ILifetimeHub>(descriptor.HubType, _lifetimeScope)
+				: _lifetimeScope.Resolve(descriptor.HubType) as IHub;
 		}
 
-		private ILifetimeScope LifetimeScope { get; set; }
-		private LifetimeHubManager LifetimeHubManager { get; set; }
+
+		private readonly ILifetimeScope _lifetimeScope;
+		private readonly LifetimeHubManager _lifetimeHubManager;
+
 	}
+
 }
