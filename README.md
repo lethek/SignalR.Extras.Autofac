@@ -1,6 +1,6 @@
 # SignalR.Extras.Autofac
 
-Directly addresses a current limitation of Autofac where it does not provide any mechanism to create a lifetime scope per SignalR hub invocation. SignalR.Extras.Autofac provides a simple way around this.
+Directly addresses a current limitation of Autofac where it does not provide a mechanism to create a lifetime-scope per SignalR hub invocation. SignalR already creates a separate hub instance for each call, and Autofac is able to inject any dependencies, but neither library provides a way for those dependencies lives to be bound to the lifetime of the hub. SignalR.Extras.Autofac provides a simple, transparent way to bridge that gap.
 
 ## Usage:
 
@@ -8,7 +8,7 @@ Directly addresses a current limitation of Autofac where it does not provide any
 
 2. Reference the namespace: SignalR.Extras.Autofac
 
-3. When setting up an Autofac container in your project, follow the usual Autofac & SignalR integration steps as outlined on the Autofac wiki (http://autofac.readthedocs.org/en/latest/integration/signalr.html), i.e. replace SignalR's dependency resolver with Autofac's custom one and register your hubs as you normally would.
+3. When setting up an Autofac container in your project, follow the usual Autofac & SignalR integration steps as outlined on the Autofac wiki (http://autofac.readthedocs.org/en/latest/integration/signalr.html), i.e. replace SignalR's dependency resolver with Autofac's custom one and register your hubs as you normally would. If you're registering your hubs manually, you still need to configure them with ExternallyOwned().
 
 4. Call the new RegisterLifetimeHubManager extension method on your ContainerBuilder instance, e.g.:
 
@@ -21,6 +21,8 @@ Directly addresses a current limitation of Autofac where it does not provide any
 Your hub instances will automatically and transparently be assigned their own new child lifetime scopes upon each invocation by SignalR. They will also automatically dispose of those lifetime scopes upon completion.
 
 You can still register and use Hubs which do not inherit from LifetimeHub or LifetimeHub<T> - dependencies will still be injected correctly by Autofac, however you will have to manually manage their lifetime scopes yourself (as described here http://autofac.readthedocs.org/en/latest/integration/signalr.html#managing-dependency-lifetimes).
+
+Note: disposing the Autofac container will result in any tracked LifetimeHub instances and their dependencies also being disposed at that time.
 
 ## Example:
 
