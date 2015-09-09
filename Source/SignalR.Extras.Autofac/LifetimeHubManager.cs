@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Collections.Concurrent;
 
 using Autofac;
 
@@ -19,9 +18,7 @@ namespace SignalR.Extras.Autofac
 			var scope = lifetimeScope.BeginLifetimeScope();
 			var hub = (T)scope.Resolve(type);
 			hub.OnDisposing += HubOnDisposing;
-			lock (_hubLifetimeScopes) {
-				_hubLifetimeScopes.Add(hub, scope);
-			}
+			_hubLifetimeScopes.TryAdd(hub, scope);
 			return hub;
 		}
 
@@ -39,13 +36,8 @@ namespace SignalR.Extras.Autofac
 
 		protected virtual void Dispose(bool disposing)
 		{
-			ILifetimeScope[] scopes;
-			lock (_hubLifetimeScopes) {
-				scopes = _hubLifetimeScopes.Select(x => x.Value).ToArray();
-				_hubLifetimeScopes.Clear();
-			}
-			foreach (var scope in scopes) {
-				scope.Dispose();
+			foreach (var hub in _hubLifetimeScopes.Keys) {
+				hub.Dispose();
 			}
 		}
 
@@ -55,18 +47,15 @@ namespace SignalR.Extras.Autofac
 		/// </summary>
 		private void HubOnDisposing(object sender, EventArgs eventArgs)
 		{
-			ILifetimeScope scope = null;
+			ILifetimeScope scope;
 			var hub = sender as IHub;
-			lock (_hubLifetimeScopes) {
-				if (hub != null && _hubLifetimeScopes.TryGetValue(hub, out scope)) {
-					_hubLifetimeScopes.Remove(hub);
-				}
+			if (hub != null && _hubLifetimeScopes.TryRemove(hub, out scope)) {
+				scope?.Dispose();
 			}
-			scope?.Dispose();
 		}
 
 
-		private readonly Dictionary<IHub, ILifetimeScope> _hubLifetimeScopes = new Dictionary<IHub, ILifetimeScope>();
+		private readonly ConcurrentDictionary<IHub, ILifetimeScope> _hubLifetimeScopes = new ConcurrentDictionary<IHub, ILifetimeScope>();
 	}
 
 }
