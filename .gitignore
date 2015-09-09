@@ -4,6 +4,7 @@
 .svn/
 _ReSharper.*/
 /_UpgradeReport_Files/
+/TestResults/
 *.suo
 *.bak
 *.[Cc]ache
@@ -30,5 +31,7 @@ Ankh.NoLoad
 # Build Binaries
 /[Ss]ource/*/[Bb]in/
 /[Ss]ource/*/[Oo]bj/
+/[Tt]ests/*/[Bb]in/
+/[Tt]ests/*/[Oo]bj/
 
 ##### INCLUDES #####
