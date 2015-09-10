@@ -15,8 +15,8 @@ using System.Runtime.InteropServices;
 
 [assembly: Guid("c182bb5d-ca52-42e5-a78f-e3732bde2666")]
 
-[assembly: AssemblyVersion("1.1.0.0")]
-[assembly: AssemblyFileVersion("1.1.0.0")]
-[assembly: AssemblyInformationalVersionAttribute("1.1.0")]
+[assembly: AssemblyVersion("1.1.1.0")]
+[assembly: AssemblyFileVersion("1.1.1.0")]
+[assembly: AssemblyInformationalVersionAttribute("1.1.1")]
 
 [assembly: InternalsVisibleTo("SignalR.Extras.Autofac.Test")]
