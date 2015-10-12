@@ -1,8 +1,4 @@
 ﻿namespace SignalR.Extras.Autofac.Test.Stubs.Dependencies
-{
 
-	public class ScopedObjectStub : ObjectStubBase
-	{
-	}
-
-}
+type SingletonObjectStub() =
+    inherit ObjectStubBase()
