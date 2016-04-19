@@ -16,11 +16,11 @@ Directly addresses a current limitation of Autofac where it does not provide a m
   builder.RegisterLifetimeHubManager();
   ```
 
-5. Ensure that your SignalR hubs which require per-invocation lifetime scopes inherit from the LifetimeHub or LifetimeHub<T> classes.
+5. Ensure that your SignalR hubs which require per-invocation lifetime scopes inherit from the `LifetimeHub` or `LifetimeHub<T>` classes.
 
 Your hub instances will automatically and transparently be assigned their own new child lifetime scopes upon each invocation by SignalR. They will also automatically dispose of those lifetime scopes upon completion.
 
-You can still register and use Hubs which do not inherit from LifetimeHub or LifetimeHub<T> - dependencies will still be injected correctly by Autofac, however you will have to manually manage their lifetime scopes yourself (as described here http://autofac.readthedocs.org/en/latest/integration/signalr.html#managing-dependency-lifetimes).
+You can still register and use Hubs which do not inherit from `LifetimeHub` or `LifetimeHub<T>` - dependencies will still be injected correctly by Autofac, however you will have to manually manage their lifetime scopes yourself (as described here http://autofac.readthedocs.org/en/latest/integration/signalr.html#managing-dependency-lifetimes).
 
 Note: disposing the Autofac container will result in any tracked LifetimeHub instances and their dependencies also being disposed at that time.
 
