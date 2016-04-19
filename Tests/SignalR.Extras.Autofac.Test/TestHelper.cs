@@ -21,6 +21,7 @@ namespace SignalR.Extras.Autofac.Test
 			//Register stub dependencies for the hubs
 			builder.RegisterType<ScopedObjectStub>().InstancePerLifetimeScope();
 			builder.RegisterType<SingletonObjectStub>().SingleInstance();
+			builder.RegisterType<RequestScopedObjectStub>().InstancePerRequest(ScopeLifetimeTag.RequestLifetimeScopeTag);
 
 			//Register our LifetimeHubs
 			builder.RegisterType<DynamicLifetimeHubStub>().ExternallyOwned();

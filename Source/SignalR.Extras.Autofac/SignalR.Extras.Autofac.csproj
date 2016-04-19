@@ -75,6 +75,7 @@
     <Compile Include="LifetimeHub.cs" />
     <Compile Include="RegisterExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScopeLifetimeTag.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

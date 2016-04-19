@@ -15,7 +15,7 @@ namespace SignalR.Extras.Autofac
 		public T ResolveHub<T>(Type type, ILifetimeScope lifetimeScope)
 			where T : ILifetimeHub
 		{
-			var scope = lifetimeScope.BeginLifetimeScope();
+			var scope = lifetimeScope.BeginLifetimeScope(ScopeLifetimeTag.RequestLifetimeScopeTag);
 			var hub = (T)scope.Resolve(type);
 			hub.OnDisposing += HubOnDisposing;
 			_hubLifetimeScopes.TryAdd(hub, scope);

@@ -87,6 +87,7 @@
     <Compile Include="LifetimeHubManagerFacts.cs" />
     <Compile Include="LifetimeHubFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stubs\Dependencies\RequestScopedObjectStub.cs" />
     <Compile Include="Stubs\GenericOrdinaryHubStub.cs" />
     <Compile Include="Stubs\DynamicOrdinaryHubStub.cs" />
     <Compile Include="TestHelper.cs" />
