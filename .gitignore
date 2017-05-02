@@ -2,6 +2,7 @@
 
 # Project Agnostic
 .svn/
+.vs/
 _ReSharper.*/
 /_UpgradeReport_Files/
 /TestResults/
@@ -29,6 +30,8 @@ Ankh.NoLoad
 /[Bb]uild/*.nupkg
 
 # Build Binaries
+/[Dd]emos/*/[Bb]in/
+/[Dd]emos/*/[Oo]bj/
 /[Ss]ource/*/[Bb]in/
 /[Ss]ource/*/[Oo]bj/
 /[Tt]ests/*/[Bb]in/
