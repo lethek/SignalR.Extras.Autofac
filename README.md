@@ -4,21 +4,21 @@ Directly addresses a current limitation of Autofac where it does not provide a m
 
 ## Usage:
 
-1. Install the NuGet package: https://www.nuget.org/packages/SignalR.Extras.Autofac
+1. Install the NuGet package: [SignalR.Extras.Autofac](https://www.nuget.org/packages/SignalR.Extras.Autofac)
 
 2. Reference the namespace: SignalR.Extras.Autofac
 
-3. When setting up an Autofac container in your project, follow the usual Autofac & SignalR integration steps as outlined on the Autofac wiki (http://autofac.readthedocs.org/en/latest/integration/signalr.html), i.e. replace SignalR's dependency resolver with Autofac's custom one and register your hubs as you normally would. If you're registering your hubs manually, you still need to configure them with ExternallyOwned().
-
-4. Call the new RegisterLifetimeHubManager extension method on your ContainerBuilder instance, e.g.:
+3. Call the new RegisterLifetimeHubManager extension method on your ContainerBuilder instance, e.g.:
 
   ```C#
   builder.RegisterLifetimeHubManager();
   ```
 
-5. Ensure that your SignalR hubs which require per-invocation lifetime scopes inherit from the `LifetimeHub` or `LifetimeHub<T>` classes.
+4. When setting up an Autofac container in your project, follow the usual Autofac & SignalR integration steps as outlined on the Autofac wiki (http://autofac.readthedocs.org/en/latest/integration/signalr.html), i.e. replace SignalR's dependency resolver with Autofac's custom one and register your hubs as you normally would. If you're registering your hubs manually, you still need to configure them with ExternallyOwned().
 
-Your hub instances will automatically and transparently be assigned their own new child lifetime scopes upon each invocation by SignalR. They will also automatically dispose of those lifetime scopes upon completion.
+5. Ensure that your SignalR hubs which require automatic lifetime scope management (it'll be per hub-invocation) inherit from the `LifetimeHub` or `LifetimeHub<T>` classes.
+
+Your hub instances will automatically and transparently be assigned their own new child lifetime scopes upon each invocation by SignalR. They will also automatically dispose of those lifetime scopes upon completion. You do not need to manage the disposal of those hubs which inherit from `LifetimeHub` or `LifetimeHub<T>`, or the injected dependencies owned by Autofac.
 
 You can still register and use Hubs which do not inherit from `LifetimeHub` or `LifetimeHub<T>` - dependencies will still be injected correctly by Autofac, however you will have to manually manage their lifetime scopes yourself (as described here http://autofac.readthedocs.org/en/latest/integration/signalr.html#managing-dependency-lifetimes).
 
@@ -26,7 +26,7 @@ Note: disposing the Autofac container will result in any tracked LifetimeHub ins
 
 ## Example:
 
-### Registration
+### Registration on an IIS host
 
 ```C#
 // Create the container builder.
@@ -36,7 +36,8 @@ var builder = new ContainerBuilder();
 builder.RegisterLifetimeHubManager();
 
 // Register the SignalR hubs.
-builder.RegisterHubs(Assembly.GetExecutingAssembly());
+builder.RegisterHubs(Assembly.GetExecutingAssembly()); //Register all hubs in an assembly
+builder.RegisterType<MyHub>().ExternallyOwned(); //Manually register a specific hub
 
 // Register other dependencies.
 builder.Register(c => new UnitOfWork()).As<IUnitOfWork>().InstancePerLifetimeScope();
@@ -46,6 +47,35 @@ var container = builder.Build();
 
 // Configure SignalR with an instance of the Autofac dependency resolver.
 GlobalHost.DependencyResolver = new AutofacDependencyResolver(container);
+```
+
+### Registration on an OWIN host
+
+```C#
+// Create the container builder.
+var builder = new ContainerBuilder();
+
+// Register the LifetimeHub manager.
+builder.RegisterLifetimeHubManager();
+
+// Register the SignalR hubs.
+builder.RegisterHubs(Assembly.GetExecutingAssembly()); //Register all hubs in an assembly
+builder.RegisterType<MyHub>().ExternallyOwned(); //Manually register a specific hub
+
+// Register other dependencies.
+builder.Register(c => new UnitOfWork()).As<IUnitOfWork>().InstancePerLifetimeScope();
+
+// Build the container.
+var container = builder.Build();
+
+// Configure SignalR with an instance of the Autofac dependency resolver.
+var hubConfig = new HubConfiguration {
+  Resolver = new AutofacDependencyResolver(Container)
+};
+
+// Register the Autofac middleware FIRST, then the standard SignalR middleware.
+app.UseAutofacMiddleware(Container);
+app.MapSignalR("/signalr", hubConfig);
 ```
 
 ### Your hubs
