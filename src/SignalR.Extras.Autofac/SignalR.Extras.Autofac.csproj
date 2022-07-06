@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <Description>Automatic Autofac lifetime-scope management for SignalR 2.x hubs.</Description>
+    <Authors>Michael Monsour</Authors>
+    <Copyright>Copyright © 2013-2022 Michael Monsour</Copyright>
+    <PackageTags>autofac, signalr</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/lethek/SignalR.Extras.Autofac</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/lethek/SignalR.Extras.Autofac</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="SignalR.Extras.Autofac.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.4.0" />
+    <PackageReference Include="Microsoft.AspNet.SignalR.Core" Version="2.2.1" />
+  </ItemGroup>
+
+</Project>
