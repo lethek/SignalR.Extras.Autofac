@@ -109,9 +109,9 @@ public class LifetimeHubTests
         int singletonDisposalCount = 0;
         int requestScopedDisposalCount = 0;
         using (var hub = (DynamicLifetimeHubStub)hubManager.ResolveHub(nameof(DynamicLifetimeHubStub))) {
-            hub.ScopedDependency.OnDisposing += (s, a) => scopedDisposalCount++;
-            hub.SingletonDependency.OnDisposing += (s, a) => singletonDisposalCount++;
-            hub.RequestScopedDependency.OnDisposing += (s, a) => requestScopedDisposalCount++;
+            hub.ScopedDependency!.OnDisposing += (s, a) => scopedDisposalCount++;
+            hub.SingletonDependency!.OnDisposing += (s, a) => singletonDisposalCount++;
+            hub.RequestScopedDependency!.OnDisposing += (s, a) => requestScopedDisposalCount++;
         }
 
         //The singleton dependency doesn't belong to the hub's scope
@@ -133,9 +133,9 @@ public class LifetimeHubTests
         int singletonDisposalCount = 0;
         int requestScopedDisposalCount = 0;
         using (var hub = (GenericLifetimeHubStub)hubManager.ResolveHub(nameof(GenericLifetimeHubStub))) {
-            hub.ScopedDependency.OnDisposing += (s, a) => scopedDisposalCount++;
-            hub.SingletonDependency.OnDisposing += (s, a) => singletonDisposalCount++;
-            hub.RequestScopedDependency.OnDisposing += (s, a) => requestScopedDisposalCount++;
+            hub.ScopedDependency!.OnDisposing += (s, a) => scopedDisposalCount++;
+            hub.SingletonDependency!.OnDisposing += (s, a) => singletonDisposalCount++;
+            hub.RequestScopedDependency!.OnDisposing += (s, a) => requestScopedDisposalCount++;
         }
 
         //The singleton dependency doesn't belong to the hub's scope

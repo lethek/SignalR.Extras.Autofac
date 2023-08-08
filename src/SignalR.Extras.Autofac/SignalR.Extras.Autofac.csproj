@@ -11,9 +11,9 @@
 
     <Authors>Michael Monsour</Authors>
     <Copyright>Copyright © 2013-2023 Michael Monsour</Copyright>
-    <Description>Automatic Autofac lifetime-scope management for SignalR 2.x hubs.</Description>
+    <Description>Adds support for per-request lifetime scopes for SignalR 2.x hubs when using Autofac as your IoC container.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>autofac, signalr</PackageTags>
+    <PackageTags>autofac;signalr</PackageTags>
     <PackageProjectUrl>https://github.com/lethek/SignalR.Extras.Autofac</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/lethek/SignalR.Extras.Autofac</RepositoryUrl>

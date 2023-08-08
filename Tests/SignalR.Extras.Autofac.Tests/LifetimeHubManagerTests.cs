@@ -11,8 +11,8 @@ public class LifetimeHubManagerTests
     [Fact]
     public void OnRegistrationThrowsIfContainerBuilderIsNull()
     {
-        ContainerBuilder builder = null;
-        Assert.Throws<ArgumentNullException>(() => builder.RegisterLifetimeHubManager());
+        ContainerBuilder? builder = null;
+        Assert.Throws<ArgumentNullException>(() => builder!.RegisterLifetimeHubManager());
     }
 
 

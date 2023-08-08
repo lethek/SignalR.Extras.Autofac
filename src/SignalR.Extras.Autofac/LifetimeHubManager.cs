@@ -45,12 +45,11 @@ internal class LifetimeHubManager : IDisposable
     /// </summary>
     private void HubOnDisposing(object sender, EventArgs eventArgs)
     {
-        var hub = sender as IHub;
-        if (hub != null && _hubLifetimeScopes.TryRemove(hub, out var scope)) {
+        if (sender is IHub hub && _hubLifetimeScopes.TryRemove(hub, out var scope)) {
             scope?.Dispose();
         }
     }
 
 
-    private readonly ConcurrentDictionary<IHub, ILifetimeScope> _hubLifetimeScopes = new ConcurrentDictionary<IHub, ILifetimeScope>();
+    private readonly ConcurrentDictionary<IHub, ILifetimeScope> _hubLifetimeScopes = new();
 }

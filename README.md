@@ -6,15 +6,18 @@
 
 *This library is designed for use with SignalR 2.x in the .NET Framework.*
 
-SignalR.Extras.Autofac directly addresses a current limitation of Autofac where it does not provide a mechanism to create a lifetime-scope per SignalR hub invocation. SignalR already creates a separate hub instance for each call, and Autofac is able to inject any dependencies, but neither library provides a way for those dependencies lives to be bound to the lifetime of the hub.
+Adds support for per-request lifetime scopes for SignalR hubs when using Autofac as your IoC container.
 
-SignalR.Extras.Autofac provides a simple, transparent way to bridge that gap, effectively allowing per-request dependency injection for SignalR hubs.
+SignalR already creates a separate hub instance for each call, and Autofac is able to inject any dependencies, but neither library provides a built-in way for those dependencies lives to be scoped to the hub's lifetime / requests.
 
-## Usage:
+SignalR.Extras.Autofac provides a simple, transparent way to bridge that gap, effectively allowing per-request dependency injection for SignalR hubs. You just need to register the `LifetimeHubManager` with Autofac and ensure your hubs inherit from `LifetimeHub`.
+
+## Getting Started:
 
 1. Install the NuGet package: [SignalR.Extras.Autofac](https://www.nuget.org/packages/SignalR.Extras.Autofac)
 
 2. Reference the namespace:
+
   ```csharp
   using SignalR.Extras.Autofac;
   ```
