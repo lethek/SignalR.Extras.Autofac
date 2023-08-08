@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ExampleUsingOWIN.Services;
 
 using SignalR.Extras.Autofac;
 
-namespace OWIN.Self.Hosted
+
+namespace ExampleUsingOWIN.Hubs
 {
     public class EchoHub : LifetimeHub
     {
