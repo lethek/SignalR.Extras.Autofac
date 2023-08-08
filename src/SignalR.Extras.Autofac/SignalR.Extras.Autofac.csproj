@@ -5,15 +5,19 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
-    <Description>Automatic Autofac lifetime-scope management for SignalR 2.x hubs.</Description>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IsPackable>true</IsPackable>
+
     <Authors>Michael Monsour</Authors>
     <Copyright>Copyright © 2013-2023 Michael Monsour</Copyright>
-    <PackageTags>autofac, signalr</PackageTags>
+    <Description>Automatic Autofac lifetime-scope management for SignalR 2.x hubs.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>autofac, signalr</PackageTags>
     <PackageProjectUrl>https://github.com/lethek/SignalR.Extras.Autofac</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/lethek/SignalR.Extras.Autofac</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,4 +29,8 @@
     <PackageReference Include="Microsoft.AspNet.SignalR.Core" Version="2.4.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" Visible="false" PackagePath="\" />
+  </ItemGroup>
+  
 </Project>
