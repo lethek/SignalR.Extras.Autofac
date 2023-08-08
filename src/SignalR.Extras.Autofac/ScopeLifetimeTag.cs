@@ -5,5 +5,5 @@ public class ScopeLifetimeTag
     /// <summary>
     /// Tag used in setting up per-request lifetime scope registrations
     /// </summary>
-    public static readonly object RequestLifetimeScopeTag = (object)"SignalRHub";
+    public static readonly object RequestLifetimeScopeTag = "SignalRHub";
 }

@@ -16,13 +16,11 @@ internal class AutofacHubActivator : IHubActivator
 
 
     public IHub? Create(HubDescriptor descriptor)
-    {
         //If requested type is an ILifetimeHub, let the LifetimeHubManager nest a new lifetime-scope
         //before resolving and then hook up disposal notifications. Otherwise simply resolve and return.
-        return typeof(ILifetimeHub).IsAssignableFrom(descriptor.HubType)
+        => typeof(ILifetimeHub).IsAssignableFrom(descriptor.HubType)
             ? _lifetimeHubManager.ResolveHub<ILifetimeHub>(descriptor.HubType, _lifetimeScope)
             : _lifetimeScope.Resolve(descriptor.HubType) as IHub;
-    }
 
 
     private readonly ILifetimeScope _lifetimeScope;

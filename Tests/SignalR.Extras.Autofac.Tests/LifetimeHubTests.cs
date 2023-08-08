@@ -5,7 +5,7 @@ using static SignalR.Extras.Autofac.Tests.TestHelper;
 
 namespace SignalR.Extras.Autofac.Tests;
 
-public class LifetimeHubFacts
+public class LifetimeHubTests
 {
 
     [Fact]
