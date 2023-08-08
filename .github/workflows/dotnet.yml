@@ -3,7 +3,7 @@ name: Build & Publish
 on:
   push:
     #branches: [ main, master ]
-    branches: [ ci ]
+    #branches: [ ci ]
     tags: [ v* ]
 
 env:
