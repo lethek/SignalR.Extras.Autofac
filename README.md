@@ -1,6 +1,6 @@
 # SignalR.Extras.Autofac
 
-[![Build & Publish](https://github.com/lethek/SignalR.Extras.Autofac/actions/workflows/dotnet.yml/badge.svg)](https://github.com/lethek/SignalR.Extras.Autofac/actions/workflows/dotnet.yml)
+[![Build & Publish](https://github.com/lethek/SignalR.Extras.Autofac/actions/workflows/build.yml/badge.svg)](https://github.com/lethek/SignalR.Extras.Autofac/actions/workflows/build.yml)
 [![NuGet](https://img.shields.io/nuget/v/SignalR.Extras.Autofac.svg)](https://www.nuget.org/packages/SignalR.Extras.Autofac)
 [![GitHub license](https://img.shields.io/github/license/lethek/SignalR.Extras.Autofac)](https://github.com/lethek/SignalR.Extras.Autofac/blob/master/LICENSE)
 
