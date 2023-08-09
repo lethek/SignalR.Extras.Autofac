@@ -12,10 +12,10 @@ jobs:
   build:
     runs-on: windows-2022
     steps:
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 6.x
+#      - name: Setup .NET
+#        uses: actions/setup-dotnet@v3
+#        with:
+#          dotnet-version: 6.x
         
       - name: Checkout
         uses: actions/checkout@v3
@@ -30,10 +30,10 @@ jobs:
             ~/.nuget/packages
           key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj', '**/Directory.Packages.props') }}
   
-      - name: 'Run: GitHubWorkflow'
+      - name: 'Run: NUKE'
         run: ./build.cmd GitHubWorkflow
   
-      - name: 'Publish: NuGet artifacts'
+      - name: 'Publish: artifacts'
         uses: actions/upload-artifact@v3
         with:
           name: nuget
