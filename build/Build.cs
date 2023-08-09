@@ -43,7 +43,7 @@ class Build : NukeBuild
     public readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
     [Parameter("Output directory for artifacts generated while packing and publishing.")]
-    public readonly AbsolutePath WorkDirectory = AbsolutePath.Create(GitHubActions.Instance?.Workflow ?? RootDirectory); 
+    public readonly AbsolutePath WorkDirectory = AbsolutePath.Create(GitHubActions.Instance?.Workspace ?? RootDirectory); 
 
     
     [Solution]
@@ -74,7 +74,7 @@ class Build : NukeBuild
     Target Compile => _ => _
         .DependsOn(Restore)
         .Executes(() => {
-            MSBuild(settings => SetMSBuildDefaults(settings).SetTargets("Build"));
+            MSBuild(settings => SetMSBuildDefaults(settings).SetTargets("Build").DisableRestore());
         });
 
     Target Test => _ => _
