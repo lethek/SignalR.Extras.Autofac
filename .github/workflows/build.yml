@@ -2,8 +2,17 @@ name: Build & Publish
 
 on:
   push:
-    branches: [ main, master ]
-    tags: [ v* ]
+    branches:
+      - main
+      - master
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+-[0-9a-ZA-Z-+.]+'
+  workflow_dispatch:
+    inputs:
+      BuildConfiguration:
+        description: "Build Configuration"
+        required: true
 
 env:
   buildConfiguration: Release
@@ -26,7 +35,7 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj', '**/Directory.Packages.props') }}
 
       - name: 'Run: NUKE'
-        run: ./build.cmd GitHubWorkflow --configuration ${{ env.buildConfiguration }}
+        run: ./build.cmd GitHubBuild --configuration ${{ env.buildConfiguration }}
 
       - name: 'Publish: artifacts'
         uses: actions/upload-artifact@v3

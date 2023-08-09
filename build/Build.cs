@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Nuke.Common;
 using Nuke.Common.CI;
 using Nuke.Common.CI.GitHubActions;
@@ -23,10 +24,14 @@ using static Nuke.Common.Tools.NuGet.NuGetTasks;
 using static Nuke.Common.Tools.Xunit.XunitTasks;
 
 [GitHubActions(
-    "continuous",
+    "ci",
     GitHubActionsImage.WindowsServer2022,
-    On = new[] { GitHubActionsTrigger.Push },
-    InvokedTargets = new[] { nameof(GitHubWorkflow) },
+    FetchDepth = 0,
+    OnPushBranches = new[] { "main", "master" },
+    OnPushTags = new[] { "v[0-9]+.[0-9]+.[0-9]+", "v[0-9]+.[0-9]+.[0-9]+-[0-9a-ZA-Z-+.]+" },
+    OnWorkflowDispatchOptionalInputs = new [] { "input" },
+    InvokedTargets = new[] { nameof(GitHubBuild) },
+    PublishArtifacts = true,
     AutoGenerate = false
 )]
 class Build : NukeBuild
@@ -55,7 +60,7 @@ class Build : NukeBuild
     
     AbsolutePath PackagesDirectory =>  WorkDirectory / "artifacts";
 
-   
+    
     Target Clean => _ => _
         .Before(Restore)
         .Executes(() => {
@@ -96,7 +101,7 @@ class Build : NukeBuild
             );
         });
 
-    Target GitHubWorkflow => _ => _
+    Target GitHubBuild => _ => _
         .DependsOn(Compile)
         .DependsOn(Test)
         .DependsOn(Pack);
