@@ -398,4 +398,5 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Nuke
+.nuke/temp/
 build.schema.json

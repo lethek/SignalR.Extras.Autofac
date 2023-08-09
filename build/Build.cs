@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Nuke.Common;
 using Nuke.Common.CI;
+using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.Execution;
 using Nuke.Common.Git;
 using Nuke.Common.IO;
@@ -21,7 +22,13 @@ using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
 using static Nuke.Common.Tools.NuGet.NuGetTasks;
 using static Nuke.Common.Tools.Xunit.XunitTasks;
 
-
+[GitHubActions(
+    "continuous",
+    GitHubActionsImage.WindowsServer2022,
+    On = new[] { GitHubActionsTrigger.Push },
+    InvokedTargets = new[] { nameof(GitHubWorkflow) },
+    AutoGenerate = false
+)]
 class Build : NukeBuild
 {
     /// Support plugins are available for:
@@ -31,15 +38,24 @@ class Build : NukeBuild
     ///   - Microsoft VSCode           https://nuke.build/vscode
     public static int Main() => Execute<Build>(x => x.Compile);
 
+    
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     public readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
+    [Parameter("Output directory for artifacts generated while packing and publishing.")]
+    public readonly AbsolutePath WorkDirectory = AbsolutePath.Create(GitHubActions.Instance?.Workflow ?? RootDirectory); 
+
+    
     [Solution]
-    protected readonly Solution Solution;
+    readonly Solution Solution;
     
     [GitVersion(NoCache=false, NoFetch=true)]
-    protected readonly GitVersion GitVersion;
+    readonly GitVersion GitVersion;
     
+    
+    AbsolutePath PackagesDirectory =>  WorkDirectory / "artifacts";
+
+   
     Target Clean => _ => _
         .Before(Restore)
         .Executes(() => {
@@ -69,14 +85,22 @@ class Build : NukeBuild
     
     Target Pack => _ => _
         .After(Compile)
+        .Produces(PackagesDirectory / "*.nupkg")
+        .Produces(PackagesDirectory / "*.snupkg")
         .Executes(() => {
             DotNetPack(settings => settings
                 .SetConfiguration(Configuration)
                 .EnableNoBuild()
                 .SetProperty("PackageVersion", GitVersion.NuGetVersion)
+                .SetOutputDirectory(PackagesDirectory)
             );
         });
 
+    Target GitHubWorkflow => _ => _
+        .DependsOn(Compile)
+        .DependsOn(Test)
+        .DependsOn(Pack);
+    
     MSBuildSettings SetMSBuildDefaults(MSBuildSettings s)
         => s.SetProcessToolPath(MSBuildPath)
             .SetTargetPath(Solution)

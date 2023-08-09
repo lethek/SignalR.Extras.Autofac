@@ -1,0 +1,48 @@
+name: Build & Publish
+
+on:
+  push:
+    branches: [ main, master ]
+    tags: [ v* ]
+
+env:
+  buildConfiguration: Release
+
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.x
+        
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+  
+      - name: 'Cache: .nuke/temp, ~/.nuget/packages'
+        uses: actions/cache@v3
+        with:
+          path: |
+            .nuke/temp
+            ~/.nuget/packages
+          key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj', '**/Directory.Packages.props') }}
+  
+      - name: 'Run: GitHubWorkflow'
+        run: ./build.cmd GitHubWorkflow
+  
+      - name: 'Publish: NuGet artifacts'
+        uses: actions/upload-artifact@v3
+        with:
+          name: nuget
+          path: |
+            ${{ github.workspace }}/artifacts/*.nupkg
+            ${{ github.workspace }}/artifacts/*.snupkg
+  
+      #- name: Push (Release)
+      #  uses: lethek/os-specific-run@v1.0.6
+      #  with:
+      #    linux: dotnet nuget push "${{ github.workspace }}/artifacts/*.nupkg" -s ${{ secrets.NUGET_SOURCE }} -k ${{ secrets.NUGET_API_KEY }} --skip-duplicate
+      #    windows: dotnet nuget push "${{ github.workspace }}\artifacts\*.nupkg" -s ${{ secrets.NUGET_SOURCE }} -k ${{ secrets.NUGET_API_KEY }} --skip-duplicate
